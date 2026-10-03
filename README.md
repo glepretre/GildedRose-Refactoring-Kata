@@ -5,6 +5,12 @@ This is a TypeScript and Vitest-focused fork of
 
 The kata requirements are in [GildedRoseRequirements.md](GildedRoseRequirements.md).
 
+## Before you start
+
+Watch Emily Bache's introduction,
+[Why Developers LOVE The Gilded Rose Kata](https://youtu.be/Mt4XpGxigT4),
+for context on the exercise and what makes it useful.
+
 ## Setup
 
 Prerequisites: Node.js 24 and Python 3.9 or newer.
