@@ -1,0 +1,4 @@
+full_name:Gilded Rose Refactoring Kata
+executable:${TEXTTEST_HOME}/TypeScript/texttest_rig.py
+interpreter:python3
+filename_convention_scheme:standard
