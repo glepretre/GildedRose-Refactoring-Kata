@@ -39,6 +39,38 @@ describe('GildedRose.updateQuality', () => {
     expect(item.quality).toBe(0);
   });
 
+  it('decreases Conjured quality by two', () => {
+    const gildedRose = new GildedRose([
+      new Item('Conjured Mana Cake', 5, 7),
+    ]);
+
+    const [item] = gildedRose.updateQuality();
+
+    expect(item.sellIn).toBe(4);
+    expect(item.quality).toBe(5);
+  });
+
+  it('decreases Conjured quality by four after the sell-by date', () => {
+    const gildedRose = new GildedRose([
+      new Item('Conjured Mana Cake', 0, 7),
+    ]);
+
+    const [item] = gildedRose.updateQuality();
+
+    expect(item.sellIn).toBe(-1);
+    expect(item.quality).toBe(3);
+  });
+
+  it('does not decrease Conjured quality below zero', () => {
+    const gildedRose = new GildedRose([
+      new Item('Conjured Mana Cake', 0, 3),
+    ]);
+
+    const [item] = gildedRose.updateQuality();
+
+    expect(item.quality).toBe(0);
+  });
+
   it('does not change Sulfuras', () => {
     const gildedRose = new GildedRose([
       new Item('Sulfuras, Hand of Ragnaros', 5, 80),
