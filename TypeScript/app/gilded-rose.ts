@@ -45,33 +45,29 @@ export class GildedRose {
       return;
     }
 
-    if (item.quality > 0) {
-      item.quality -= 1;
-    }
+    this.decreaseQuality(item);
     item.sellIn -= 1;
-    if (item.sellIn < 0 && item.quality > 0) {
-      item.quality -= 1;
+    if (item.sellIn < 0) {
+      this.decreaseQuality(item);
     }
   }
 
   private updateAgedBrie(item: Item): void {
-    if (item.quality < 50) {
-      item.quality += 1;
-    }
+    this.increaseQuality(item);
     item.sellIn -= 1;
-    if (item.sellIn < 0 && item.quality < 50) {
-      item.quality += 1;
+    if (item.sellIn < 0) {
+      this.increaseQuality(item);
     }
   }
 
   private updateBackstagePass(item: Item): void {
     if (item.quality < 50) {
-      item.quality += 1;
-      if (item.sellIn < 11 && item.quality < 50) {
-        item.quality += 1;
+      this.increaseQuality(item);
+      if (item.sellIn < 11) {
+        this.increaseQuality(item);
       }
-      if (item.sellIn < 6 && item.quality < 50) {
-        item.quality += 1;
+      if (item.sellIn < 6) {
+        this.increaseQuality(item);
       }
     }
     item.sellIn -= 1;
@@ -85,6 +81,18 @@ export class GildedRose {
     item.sellIn -= 1;
     if (item.sellIn < 0) {
       item.quality = Math.max(0, item.quality - 2);
+    }
+  }
+
+  private increaseQuality(item: Item): void {
+    if (item.quality < 50) {
+      item.quality += 1;
+    }
+  }
+
+  private decreaseQuality(item: Item): void {
+    if (item.quality > 0) {
+      item.quality -= 1;
     }
   }
 }
