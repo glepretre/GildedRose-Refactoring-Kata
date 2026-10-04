@@ -72,11 +72,10 @@ export class GildedRose {
   }
 
   private updateConjuredItem(item: Item): void {
-    item.quality = Math.max(0, item.quality - 2);
+    const degradation = item.sellIn <= 0 ? 4 : 2;
+
+    this.decreaseQuality(item, degradation);
     item.sellIn -= 1;
-    if (item.sellIn < 0) {
-      item.quality = Math.max(0, item.quality - 2);
-    }
   }
 
   private increaseQuality(item: Item, amount: number): void {
