@@ -40,6 +40,11 @@ export class GildedRose {
       return;
     }
 
+    if (item.name.startsWith('Conjured')) {
+      this.updateConjuredItem(item);
+      return;
+    }
+
     if (item.quality > 0) {
       item.quality -= 1;
     }
@@ -72,6 +77,14 @@ export class GildedRose {
     item.sellIn -= 1;
     if (item.sellIn < 0) {
       item.quality = 0;
+    }
+  }
+
+  private updateConjuredItem(item: Item): void {
+    item.quality = Math.max(0, item.quality - 2);
+    item.sellIn -= 1;
+    if (item.sellIn < 0) {
+      item.quality = Math.max(0, item.quality - 2);
     }
   }
 }
