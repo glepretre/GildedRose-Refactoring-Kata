@@ -50,6 +50,19 @@ describe('GildedRose.updateQuality', () => {
     expect(item.quality).toBe(5);
   });
 
+  it.each([
+    ['Conjured Sword', 5],
+    ['Conjuredness', 6],
+    ['Conjured', 6],
+  ])('updates "%s" according to its prefix', (name, expectedQuality) => {
+    const gildedRose = new GildedRose([new Item(name, 5, 7)]);
+
+    const [item] = gildedRose.updateQuality();
+
+    expect(item.sellIn).toBe(4);
+    expect(item.quality).toBe(expectedQuality);
+  });
+
   it('decreases Conjured quality by two with one day left', () => {
     const gildedRose = new GildedRose([
       new Item('Conjured Mana Cake', 1, 7),

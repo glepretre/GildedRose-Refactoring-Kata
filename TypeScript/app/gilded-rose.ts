@@ -40,7 +40,7 @@ export class GildedRose {
       return;
     }
 
-    if (item.name.startsWith('Conjured')) {
+    if (item.name.startsWith('Conjured ')) {
       this.updateConjuredItem(item);
       return;
     }
