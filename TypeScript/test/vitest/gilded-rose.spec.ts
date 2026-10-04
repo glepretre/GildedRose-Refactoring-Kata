@@ -50,6 +50,17 @@ describe('GildedRose.updateQuality', () => {
     expect(item.quality).toBe(5);
   });
 
+  it('decreases Conjured quality by two with one day left', () => {
+    const gildedRose = new GildedRose([
+      new Item('Conjured Mana Cake', 1, 7),
+    ]);
+
+    const [item] = gildedRose.updateQuality();
+
+    expect(item.sellIn).toBe(0);
+    expect(item.quality).toBe(5);
+  });
+
   it('decreases Conjured quality by four after the sell-by date', () => {
     const gildedRose = new GildedRose([
       new Item('Conjured Mana Cake', 0, 7),
@@ -68,6 +79,17 @@ describe('GildedRose.updateQuality', () => {
 
     const [item] = gildedRose.updateQuality();
 
+    expect(item.quality).toBe(0);
+  });
+
+  it('does not decrease Conjured quality below zero before expiration', () => {
+    const gildedRose = new GildedRose([
+      new Item('Conjured Mana Cake', 5, 1),
+    ]);
+
+    const [item] = gildedRose.updateQuality();
+
+    expect(item.sellIn).toBe(4);
     expect(item.quality).toBe(0);
   });
 
@@ -105,6 +127,15 @@ describe('GildedRose.updateQuality', () => {
 
     const [item] = gildedRose.updateQuality();
 
+    expect(item.quality).toBe(50);
+  });
+
+  it('caps expired Aged Brie quality at 50', () => {
+    const gildedRose = new GildedRose([new Item('Aged Brie', 0, 49)]);
+
+    const [item] = gildedRose.updateQuality();
+
+    expect(item.sellIn).toBe(-1);
     expect(item.quality).toBe(50);
   });
 
