@@ -59,6 +59,15 @@ describe('GildedRose.updateQuality', () => {
     expect(item.quality).toBe(8);
   });
 
+  it('increases Aged Brie quality by two after the sell-by date', () => {
+    const gildedRose = new GildedRose([new Item('Aged Brie', 0, 7)]);
+
+    const [item] = gildedRose.updateQuality();
+
+    expect(item.sellIn).toBe(-1);
+    expect(item.quality).toBe(9);
+  });
+
   it('does not increase Aged Brie quality above 50', () => {
     const gildedRose = new GildedRose([new Item('Aged Brie', 5, 50)]);
 
