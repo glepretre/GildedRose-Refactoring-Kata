@@ -28,4 +28,14 @@ describe('GildedRose.updateQuality', () => {
     expect(item.sellIn).toBe(-1);
     expect(item.quality).toBe(5);
   });
+
+  it('does not decrease quality below zero', () => {
+    const gildedRose = new GildedRose([
+      new Item('Elixir of the Mongoose', 0, 1),
+    ]);
+
+    const [item] = gildedRose.updateQuality();
+
+    expect(item.quality).toBe(0);
+  });
 });
