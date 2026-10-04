@@ -45,29 +45,27 @@ export class GildedRose {
       return;
     }
 
-    this.decreaseQuality(item);
+    const degradation = item.sellIn <= 0 ? 2 : 1;
+
+    this.decreaseQuality(item, degradation);
     item.sellIn -= 1;
-    if (item.sellIn < 0) {
-      this.decreaseQuality(item);
-    }
   }
 
   private updateAgedBrie(item: Item): void {
-    this.increaseQuality(item);
+    const improvement = item.sellIn <= 0 ? 2 : 1;
+
+    this.increaseQuality(item, improvement);
     item.sellIn -= 1;
-    if (item.sellIn < 0) {
-      this.increaseQuality(item);
-    }
   }
 
   private updateBackstagePass(item: Item): void {
     if (item.quality < 50) {
-      this.increaseQuality(item);
+      this.increaseQuality(item, 1);
       if (item.sellIn < 11) {
-        this.increaseQuality(item);
+        this.increaseQuality(item, 1);
       }
       if (item.sellIn < 6) {
-        this.increaseQuality(item);
+        this.increaseQuality(item, 1);
       }
     }
     item.sellIn -= 1;
@@ -84,15 +82,15 @@ export class GildedRose {
     }
   }
 
-  private increaseQuality(item: Item): void {
+  private increaseQuality(item: Item, amount: number): void {
     if (item.quality < 50) {
-      item.quality += 1;
+      item.quality = Math.min(50, item.quality + amount);
     }
   }
 
-  private decreaseQuality(item: Item): void {
+  private decreaseQuality(item: Item, amount: number): void {
     if (item.quality > 0) {
-      item.quality -= 1;
+      item.quality = Math.max(0, item.quality - amount);
     }
   }
 }
