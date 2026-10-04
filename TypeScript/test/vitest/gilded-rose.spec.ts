@@ -6,4 +6,26 @@ describe('GildedRose.updateQuality', () => {
     const items = gildedRose.updateQuality();
     expect(items[0].name).toBe('foo');
   });
+
+  it('decreases sellIn and quality', () => {
+    const gildedRose = new GildedRose([
+      new Item('Elixir of the Mongoose', 5, 7),
+    ]);
+
+    const [item] = gildedRose.updateQuality();
+
+    expect(item.sellIn).toBe(4);
+    expect(item.quality).toBe(6);
+  });
+
+  it('decreases quality twice as fast after the sell-by date', () => {
+    const gildedRose = new GildedRose([
+      new Item('Elixir of the Mongoose', 0, 7),
+    ]);
+
+    const [item] = gildedRose.updateQuality();
+
+    expect(item.sellIn).toBe(-1);
+    expect(item.quality).toBe(5);
+  });
 });
