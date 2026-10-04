@@ -103,4 +103,14 @@ describe('GildedRose.updateQuality', () => {
       expect(item.quality).toBe(expectedQuality);
     }
   );
+
+  it('does not increase Backstage pass quality above 50', () => {
+    const gildedRose = new GildedRose([
+      new Item('Backstage passes to a TAFKAL80ETC concert', 5, 49),
+    ]);
+
+    const [item] = gildedRose.updateQuality();
+
+    expect(item.quality).toBe(50);
+  });
 });
