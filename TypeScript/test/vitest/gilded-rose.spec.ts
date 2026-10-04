@@ -66,4 +66,65 @@ describe('GildedRose.updateQuality', () => {
 
     expect(item.quality).toBe(50);
   });
+
+  it.each([
+    {
+      scenario: 'more than 10 days remain',
+      sellIn: 15,
+      quality: 20,
+      expectedQuality: 21,
+    },
+    {
+      scenario: '10 days remain',
+      sellIn: 10,
+      quality: 20,
+      expectedQuality: 22,
+    },
+    {
+      scenario: '9 days remain',
+      sellIn: 9,
+      quality: 20,
+      expectedQuality: 22,
+    },
+    {
+      scenario: '6 days remain',
+      sellIn: 6,
+      quality: 20,
+      expectedQuality: 22,
+    },
+    {
+      scenario: '5 days remain',
+      sellIn: 5,
+      quality: 20,
+      expectedQuality: 23,
+    },
+    {
+      scenario: '4 days remain',
+      sellIn: 4,
+      quality: 20,
+      expectedQuality: 23,
+    },
+    {
+      scenario: 'the concert is today',
+      sellIn: 0,
+      quality: 20,
+      expectedQuality: 0,
+    },
+  ])(
+    'updates Backstage pass quality when $scenario',
+    ({ sellIn, quality, expectedQuality }) => {
+      const gildedRose = new GildedRose([
+        new Item(
+          'Backstage passes to a TAFKAL80ETC concert',
+          sellIn,
+          quality
+        ),
+      ]);
+
+      const [item] = gildedRose.updateQuality();
+
+      expect(item.sellIn).toBe(sellIn - 1);
+      expect(item.quality).toBe(expectedQuality);
+    }
+  );
 });
