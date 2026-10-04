@@ -31,8 +31,8 @@ npm run test:coverage
 npm run typecheck
 ```
 
-The starter unit test intentionally contains a `fixme` expectation. Replace it
-as part of the kata. The existing approval tests use Vitest snapshots.
+Unit tests cover item behavior, including Conjured items. Approval tests use
+Vitest snapshots to check an ordinary item and the inventory over 30 days.
 
 The repository also includes a TextTest golden master. Run it from the root:
 
