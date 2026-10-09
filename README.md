@@ -41,3 +41,8 @@ The repository also includes a TextTest golden master. Run it from the root:
 ```
 
 See [texttests/README.md](texttests/README.md) for details.
+
+## My solution
+
+My solution is available in [PR #1](https://github.com/glepretre/GildedRose-Refactoring-Kata/pull/1).
+It is kept separate from `main` to preserve the kata's starting point.
