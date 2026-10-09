@@ -45,10 +45,11 @@ export class GildedRose {
       return;
     }
 
-    const degradation = item.sellIn <= 0 ? 2 : 1;
+    this.updateNormalItem(item);
+  }
 
-    this.decreaseQuality(item, degradation);
-    item.sellIn -= 1;
+  private updateNormalItem(item: Item): void {
+    this.updateDegradingItem(item, 1);
   }
 
   private updateAgedBrie(item: Item): void {
@@ -72,9 +73,13 @@ export class GildedRose {
   }
 
   private updateConjuredItem(item: Item): void {
-    const degradation = item.sellIn <= 0 ? 4 : 2;
+    this.updateDegradingItem(item, 2);
+  }
 
-    this.decreaseQuality(item, degradation);
+  private updateDegradingItem(item: Item, factor: number): void {
+    const degradation = item.sellIn <= 0 ? 2 : 1;
+
+    this.decreaseQuality(item, degradation * factor);
     item.sellIn -= 1;
   }
 
